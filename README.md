@@ -53,19 +53,38 @@ This project uses the following static analysis tools:
 
 The reports from these tools can be found in the `Lab5` directory.
 
-## Key Issues Fixed:
+# Issues Documentation Table
 
-1.  **✅ Mutable default argument** - Fixed potential bug where lists were shared across function calls
-2.  **✅ Bare except clause** - Improved error handling and security
-3.  **✅ Use of eval()** - Eliminated major security vulnerability
-4.  **✅ Global variable usage** - Improved code design and testability
-5.  **✅ Missing input validation** - Added proper type checking
-6.  **✅ Poor file handling** - Used context managers for resource safety
+Based on the static analysis reports from Pylint, Bandit, and Flake8, here are the identified issues and fixes:
+
+| Issue | Type | Line(s) | Description | Fix Approach |
+|-------|------|---------|-------------|-------------|
+| **Mutable default argument** | Bug | 6 | `logs=[]` shared across function calls, causing unexpected behavior | Changed to `logs=None` and initialize list inside function |
+| **Bare except clause** | Security | 16 | Catching all exceptions silently, hiding potential errors | Replaced with specific exception types `(KeyError, ValueError)` |
+| **Use of eval()** | Security | 50 | Dangerous code execution vulnerability allowing arbitrary code execution | Removed eval and used direct `print()` statement |
+| **Global variable usage** | Design | Multiple | Using global `stock_data` variable across all functions | Restructured to pass `stock_data` as parameter to all functions |
+| **Missing input validation** | Quality | 44 | No type checking for function parameters, allowing invalid data | Added `isinstance()` checks for parameter validation |
+| **Poor file handling** | Security | 22, 28 | Files opened without context managers, potential resource leaks | Used `with` statements for automatic file closing |
+| **Missing encoding specification** | Security | File ops | Files opened without specified encoding, potential encoding issues | Added `encoding="utf-8"` to all file operations |
+| **Unused imports** | Quality | 2 | `logging` imported but never used in the code | Removed unused import statement |
+| **Missing docstrings** | Quality | Multiple | Module and functions missing documentation | Added comprehensive docstrings to module and all functions |
+| **Inconsistent naming** | Style | Multiple | Function names using camelCase instead of snake_case | Renamed all functions to follow PEP8 snake_case convention |
+| **Poor string formatting** | Style | 10 | Using % formatting instead of modern f-strings | Converted to f-string formatting |
+| **No main guard** | Quality | 52 | Script runs on import instead of only when executed directly | Added `if __name__ == "__main__":` guard |
+
+## Key Issues Fixed (Minimum 4 Required):
+
+1. **✅ Mutable default argument** - Fixed potential bug where lists were shared across function calls
+2. **✅ Bare except clause** - Improved error handling and security
+3. **✅ Use of eval()** - Eliminated major security vulnerability
+4. **✅ Global variable usage** - Improved code design and testability
+5. **✅ Missing input validation** - Added proper type checking
+6. **✅ Poor file handling** - Used context managers for resource safety
 
 ## Severity Classification:
 
--   **High Severity**: eval() usage, bare except clauses, mutable default arguments
--   **Medium Severity**: Global variable usage, missing input validation
--   **Low Severity**: Style issues, naming conventions, docstrings
+- **High Severity**: eval() usage, bare except clauses, mutable default arguments
+- **Medium Severity**: Global variable usage, missing input validation
+- **Low Severity**: Style issues, naming conventions, docstrings
 
 The fixes address both immediate functional issues and long-term maintainability concerns, significantly improving the code's security, reliability, and professional quality.
