@@ -53,21 +53,19 @@ This project uses the following static analysis tools:
 
 The reports from these tools can be found in the `Lab5` directory.
 
-## Summary of Issues Fixed
+## Key Issues Fixed:
 
-| Issue Category | Issue | Resolution |
-| :--- | :--- | :--- |
-| **Code Style & Readability** | Inconsistent function naming (`camelCase`) | Renamed functions to `snake_case` (e.g., `addItem` to `add_item`) to adhere to PEP 8. |
-| | Missing docstrings | Added docstrings to the module and all functions to explain their purpose. |
-| | Unused import (`logging`) | Removed the unused import statement. |
-| | Inefficient string formatting | Replaced older string formatting with f-strings for better readability. |
-| | Verbose list creation | Replaced a for loop with a more concise list comprehension in `check_low_items`. |
-| **Error Handling & Robustness** | Dangerous default value (`[]`) | Replaced the mutable default argument with `None` in `add_item` to prevent unexpected behavior. |
-| | Lack of input validation | Added type checks for arguments in `add_item` and `remove_item`. |
-| | Bare `except:` clause | Replaced the bare `except` with specific exception handling (`KeyError`, `ValueError`) in `remove_item`. |
-| | No error handling for file operations | Added `try...except` blocks in `load_data` to handle `FileNotFoundError` and `json.JSONDecodeError`. |
-| | Unsafe dictionary access | Used the `.get()` method for safer dictionary access in `get_qty`. |
-| **Security** | Use of `eval()` | Removed the dangerous `eval()` function call and replaced it with a simple `print`. |
-| **Modularity & Design** | Use of global variables | Eliminated the global `stock_data` variable by passing it as a parameter to functions, improving modularity. |
-| | Lack of script entry point | Added `if __name__ == "__main__"` to make the script importable as a module. |
-| | No use of `with` for file handling | Used the `with` statement for file operations to ensure proper resource management. |
+1.  **✅ Mutable default argument** - Fixed potential bug where lists were shared across function calls
+2.  **✅ Bare except clause** - Improved error handling and security
+3.  **✅ Use of eval()** - Eliminated major security vulnerability
+4.  **✅ Global variable usage** - Improved code design and testability
+5.  **✅ Missing input validation** - Added proper type checking
+6.  **✅ Poor file handling** - Used context managers for resource safety
+
+## Severity Classification:
+
+-   **High Severity**: eval() usage, bare except clauses, mutable default arguments
+-   **Medium Severity**: Global variable usage, missing input validation
+-   **Low Severity**: Style issues, naming conventions, docstrings
+
+The fixes address both immediate functional issues and long-term maintainability concerns, significantly improving the code's security, reliability, and professional quality.
