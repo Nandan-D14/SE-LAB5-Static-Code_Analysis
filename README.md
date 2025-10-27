@@ -52,3 +52,22 @@ This project uses the following static analysis tools:
 -   **flake8**: A tool to check your Python code against some of the style conventions in PEP 8.
 
 The reports from these tools can be found in the `Lab5` directory.
+
+## Summary of Issues Fixed
+
+| Issue Category | Issue | Resolution |
+| :--- | :--- | :--- |
+| **Code Style & Readability** | Inconsistent function naming (`camelCase`) | Renamed functions to `snake_case` (e.g., `addItem` to `add_item`) to adhere to PEP 8. |
+| | Missing docstrings | Added docstrings to the module and all functions to explain their purpose. |
+| | Unused import (`logging`) | Removed the unused import statement. |
+| | Inefficient string formatting | Replaced older string formatting with f-strings for better readability. |
+| | Verbose list creation | Replaced a for loop with a more concise list comprehension in `check_low_items`. |
+| **Error Handling & Robustness** | Dangerous default value (`[]`) | Replaced the mutable default argument with `None` in `add_item` to prevent unexpected behavior. |
+| | Lack of input validation | Added type checks for arguments in `add_item` and `remove_item`. |
+| | Bare `except:` clause | Replaced the bare `except` with specific exception handling (`KeyError`, `ValueError`) in `remove_item`. |
+| | No error handling for file operations | Added `try...except` blocks in `load_data` to handle `FileNotFoundError` and `json.JSONDecodeError`. |
+| | Unsafe dictionary access | Used the `.get()` method for safer dictionary access in `get_qty`. |
+| **Security** | Use of `eval()` | Removed the dangerous `eval()` function call and replaced it with a simple `print`. |
+| **Modularity & Design** | Use of global variables | Eliminated the global `stock_data` variable by passing it as a parameter to functions, improving modularity. |
+| | Lack of script entry point | Added `if __name__ == "__main__"` to make the script importable as a module. |
+| | No use of `with` for file handling | Used the `with` statement for file operations to ensure proper resource management. |
